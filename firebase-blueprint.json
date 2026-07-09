@@ -1,0 +1,92 @@
+{
+  "entities": {
+    "Listing": {
+      "title": "Listing",
+      "description": "A car or building listed for rent or sale.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique ID of the listing." },
+        "title": { "type": "string", "description": "Title of the listing." },
+        "type": { "type": "string", "enum": ["car", "building"], "description": "Type of listing." },
+        "category": { "type": "string", "enum": ["rent", "buy"], "description": "Transaction category." },
+        "price": { "type": "number", "description": "Price of the listing." },
+        "location": { "type": "string", "description": "Location of the listing." },
+        "image": { "type": "string", "description": "URL or Base64 data URI of the listing image." },
+        "description": { "type": "string", "description": "Full description of the listing." },
+        "features": { "type": "array", "items": { "type": "string" }, "description": "List of features." },
+        "specs": { "type": "object", "description": "Key-value specifications." },
+        "authorId": { "type": "string", "description": "UID of the user who created the listing." },
+        "authorName": { "type": "string", "description": "Name of the user who created the listing." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when the listing was created." }
+      },
+      "required": ["title", "type", "category", "price", "location", "authorId"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile information.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique ID of the user." },
+        "displayName": { "type": "string", "description": "Display name of the user." },
+        "email": { "type": "string", "description": "Email address of the user." },
+        "photoURL": { "type": "string", "description": "URL of the user's profile photo." },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "User role." },
+        "phone": { "type": "string", "description": "Optional contact phone number." },
+        "vipStatus": { "type": "string", "enum": ["standard", "vip", "elite"], "description": "Optional VIP status." }
+      },
+      "required": ["uid", "email"]
+    },
+    "ServiceRequest": {
+      "title": "ServiceRequest",
+      "description": "A concierge or premium service booking request.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique ID of the service request." },
+        "userId": { "type": "string", "description": "UID of the user making the booking." },
+        "userName": { "type": "string", "description": "Display name of the user." },
+        "userEmail": { "type": "string", "description": "Email address of the user." },
+        "serviceName": { "type": "string", "description": "Name of the premium service booked." },
+        "message": { "type": "string", "description": "Custom requirements or notes." },
+        "preferredDate": { "type": "string", "description": "Preferred date or timeline." },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "contacted"], "description": "Status of the booking." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." }
+      },
+      "required": ["userId", "serviceName", "status", "createdAt"]
+    },
+    "SupportTicket": {
+      "title": "SupportTicket",
+      "description": "A customer support inquiry ticket.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique ID of the ticket." },
+        "userId": { "type": "string", "description": "UID of the submitter." },
+        "userName": { "type": "string", "description": "Name of the submitter." },
+        "userEmail": { "type": "string", "description": "Email of the submitter." },
+        "subject": { "type": "string", "description": "Subject of the ticket." },
+        "category": { "type": "string", "enum": ["general", "billing", "technical", "verification"], "description": "Inquiry category." },
+        "message": { "type": "string", "description": "Detailed description of the issue." },
+        "status": { "type": "string", "enum": ["open", "in-progress", "resolved"], "description": "Ticket status." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." }
+      },
+      "required": ["userId", "subject", "category", "message", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/listings/{listingId}": {
+      "schema": "Listing",
+      "description": "Collection of all property and vehicle listings."
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents."
+    },
+    "/serviceRequests/{requestId}": {
+      "schema": "ServiceRequest",
+      "description": "Premium concierge booking requests."
+    },
+    "/supportTickets/{ticketId}": {
+      "schema": "SupportTicket",
+      "description": "Customer support and inquiry tickets."
+    }
+  }
+}

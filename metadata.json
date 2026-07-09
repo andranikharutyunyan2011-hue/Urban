@@ -1,0 +1,6 @@
+{
+  "name": "UrbanAm",
+  "description": "UrbanAm - The premium marketplace for modern mobility and living. Rent or buy high-end cars and properties with confidence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
